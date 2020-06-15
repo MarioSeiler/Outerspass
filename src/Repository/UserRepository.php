@@ -33,8 +33,14 @@ class UserRepository extends Repository
      */
     public function create($firstName, $lastName, $email, $password)
     {
-        $password = sha1($password);
+        
+        if(empty($firstName) || empty($lastName) || empty($email) || empty($password) || !filter_var($email, FILTER_VALIDATE_EMAIL)){
+            echo 'Eingabe erfüllt nicht den Standard!';
+            exit;
+        }
 
+        $password = sha1($password);
+        
         $query = "INSERT INTO $this->tableName (firstName, lastName, email, password) VALUES (?, ?, ?, ?)";
 
         $statement = ConnectionHandler::getConnection()->prepare($query);
@@ -46,4 +52,36 @@ class UserRepository extends Repository
 
         return $statement->insert_id;
     }
+
+    public function login($email, $password)
+    {
+
+        $query = "Select id, password from $this->tableName where $this->tableName.email = ?";
+
+        $statement = ConnectionHandler::getConnection()->prepare($query);
+        $statement->bind_param('i', $email);
+
+        // Das Statement absetzen
+        $statement->execute();
+
+        // Resultat der Abfrage holen
+        $result = $statement->get_result();
+        if (!$result) {
+            throw new Exception($statement->error);
+        }
+
+        // Ersten Datensatz aus dem Reultat holen
+        $row = $result->fetch_object();
+
+        // Datenbankressourcen wieder freigeben
+        $result->close();
+        if($row->password == sha1($password)){
+
+            $_SESSION["loggedin"] = true;
+            $_SESSION["user"] = $row->id;
+
+        }
+
+    }
+
 }
