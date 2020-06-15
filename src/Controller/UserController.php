@@ -31,6 +31,18 @@ class UserController
 
     public function doCreate()
     {
+
+        if (isset($_POST['email']) && ! empty($_POST['email'])) {
+            $email = $_POST['email'];
+            
+            // see: http://php.net/manual/de/function.filter-var.php
+            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                echo 'This is not an email';
+            }
+        } else {
+            echo 'Email not set';
+        }
+        
         if (isset($_POST['send'])) {
             $firstName = $_POST['fname'];
             $lastName = $_POST['lname'];
@@ -52,13 +64,14 @@ class UserController
     }
 
     public function doLogin(){
-        session_start();
- 
+
+        
         // Check if the user is logged in, if not then redirect him to login page
         if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
-            header("location: login.php");
+            header("location: login");
             exit;
         }
+
     }
 
     public function delete()

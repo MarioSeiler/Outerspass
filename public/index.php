@@ -1,5 +1,6 @@
 <?php
 session_start();
+$_SESSION["loggedin"] = false;
 /*
  * Die index.php Datei ist der Einstiegspunkt des MVC. Hier werden zuerst alle
  * vom Framework benötigten Klassen geladen und danach wird die Anfrage dem

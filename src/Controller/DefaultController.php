@@ -45,4 +45,14 @@ class DefaultController
         $view->heading = 'Top featured Games';
         $view->display();
     }
+    public function about()
+    {
+        // In diesem Fall möchten wir dem Benutzer die View mit dem Namen
+        //   "default_index" rendern. Wie das genau funktioniert, ist in der
+        //   View Klasse beschrieben.
+        $view = new View('default/about');
+        $view->title = 'About us';
+        $view->heading = 'About us';
+        $view->display();
+    }
 }

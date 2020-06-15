@@ -21,9 +21,9 @@ return array(
     // Datebankkonfiguration
     'database' => array(
         'host'     => 'localhost',
-        'username' => 'xTabstopp',
-        'password' => 'Sommer2018$',
-        'database' => 'outerspass-store',
+        'username' => 'bseilmsql1',
+        'password' => 'Welcome$20',
+        'database' => 'bseilmsql1',
     ),
 
 );
