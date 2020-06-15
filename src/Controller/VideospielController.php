@@ -35,6 +35,15 @@ class VideospielController
 		$view->display();
 	}
 	
+	public function genre($genre)
+	{
+		$view = new View('videospiel/index');
+		$view->title = 'Videospiele im Genre von' . $genre;
+		$view->heading = 'Videospiele im Genre von' . $genre;
+		$view->videospiele = $videospielRepository->readGenre($genre);
+		$view->display();
+	}
+	
     public function doCreate()
     {
         if (isset($_POST['send'])) {

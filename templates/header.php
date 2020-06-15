@@ -28,7 +28,7 @@
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle waves-effect waves-light" id="navbarDropdownMenuLink"               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Games</a>
                 <div class="dropdown-menu dropdown-info" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item waves-effect waves-light" href="#">Adventure</a>
+                    <a class="dropdown-item waves-effect waves-light" >Adventure</a>
                     <a class="dropdown-item waves-effect waves-light" href="#">Shooter</a>
                     <a class="dropdown-item waves-effect waves-light" href="#">Strategy</a>
                   	<a class="dropdown-item waves-effect waves-light" href="#">Horror</a>

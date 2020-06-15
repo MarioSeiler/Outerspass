@@ -6,17 +6,18 @@ use App\Database\ConnectionHandler;
 use Exception;
 
 
-class VideospielRepository extends Repository
+class BestellungRepository extends Repository
 {
-	protected $tableName = 'videospiel';
-	protected $supportTableName ='genre';
+	protected $tableName = 'bestellung';
+	protected $supportTableName1 = 'videospiel';
+	protected $supportTableName2 = 'user';
 	
-	public function create($titel, $publisher, $trailer, $price, $genre_id)
+	public function create($user_id, $videospiel_id)
 	{
-		$query = "INSERT INTO $this->tableName (titel, publisher, trailer, price, genre_id) VALUES (?,?,?,?)";
+		$query = "INSERT INTO $this->tableName (user_id, videospiel_id,istGekauft) VALUES (?,?,?,?)";
 		
 		$statement = ConnectionHandler::getConnection()->prepare($query);
-        $statement->bind_param('ssss', $titel, $publisher, $trailer, $price, $genre_id);
+        $statement->bind_param('ssss', $user_id, $videospiel_id, 0);
 
         if (!$statement->execute()) {
             throw new Exception($statement->error);
@@ -25,10 +26,10 @@ class VideospielRepository extends Repository
         return $statement->insert_id;
 	}
 	
-	public function readGenre($genre)
+	/*public function readGenre($genre)
 	{
 		 // Query erstellen
-        $query = "SELECT * FROM {$this->tableName} INNER JOIN {$this->supportTableName} ON {$this->tablename}.genre_id = {$this->supportTableName}.id WHERE {$this->supportTableName}.genre=?";
+        $query = "SELECT * FROM {$this->tableName} INNER JOIN genre ON $this->tablename.genre_id = genre.id WHERE genre.genre=?";
 
         // Datenbankverbindung anfordern und, das Query "preparen" (vorbereiten)
         // und die Parameter "binden"
@@ -54,16 +55,17 @@ class VideospielRepository extends Repository
 
         // Den gefundenen Datensatz zurückgeben
         return $rows;
-	}
+	}*/
 	
-	public function getGenre_id($genre)
+	public function readBestellungen($user_id)
 	{
-		$query = "SELECT {$this->supportTableName}.id FROM {$this->tableName} INNER JOIN {$this->supportTableName} ON {$this->tablename}.genre_id = {$this->supportTableName}.id WHERE {$this->supportTableName}.genre=?";
+		$query = "SELECT {$this->tableName}.id, {$this->supportTableName1}.titel, {$this->supportTableName1}.publisher, {$this->supportTableName1}.price FROM {$this->tableName} INNER JOIN {$this->supportTableName1} ON {$this->tablename}.videospiel_id = {$this->supportTableName1}.id 
+		INNER JOIN {$this->supportTableName2} ON {$this->tableName}.user_id = {$this->supportTableName2}.id WHERE {$this->supportTableName2}.id=?";
 
         // Datenbankverbindung anfordern und, das Query "preparen" (vorbereiten)
         // und die Parameter "binden"
         $statement = ConnectionHandler::getConnection()->prepare($query);
-        $statement->bind_param('i', $genre);
+        $statement->bind_param('i', $user_id);
 
         // Das Statement absetzen
         $statement->execute();
@@ -74,14 +76,16 @@ class VideospielRepository extends Repository
             throw new Exception($statement->error);
         }
 
-        // Ersten Datensatz aus dem Reultat holen
-        $row = $result->fetch_object();
+        $rows = array();
+        while ($row = $result->fetch_object()) {
+            $rows[] = $row;
+        }
 
         // Datenbankressourcen wieder freigeben
         $result->close();
 
         // Den gefundenen Datensatz zurückgeben
-        return $row;
+        return $rows;
 	}
 }
 ?>
