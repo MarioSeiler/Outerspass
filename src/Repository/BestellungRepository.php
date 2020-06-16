@@ -14,12 +14,14 @@ class BestellungRepository extends Repository
 	
 	public function create($user_id, $videospiel_id)
 	{
-		$query = "INSERT INTO $this->tableName (user_id, videospiel_id,istGekauft) VALUES (?,?,?,?)";
+		$query = "INSERT INTO $this->tableName (user_id, videospiel_id,istGekauft) VALUES (?,?,?)";
 		
 		$statement = ConnectionHandler::getConnection()->prepare($query);
-        $statement->bind_param('sss', $user_id, $videospiel_id, 0);
+		
+		$istGekauft = false;
+		$statement->bind_param('iib', $user_id, $videospiel_id, $istGekauft);
 
-        if (!$statement->execute()) {
+        if (!$statement->execute()) { 
             throw new Exception($statement->error);
         }
 
@@ -59,8 +61,8 @@ class BestellungRepository extends Repository
 	
 	public function readBestellungen($user_id)
 	{
-		$query = "SELECT {$this->tableName}.id, {$this->supportTableName1}.titel, {$this->supportTableName1}.publisher, {$this->supportTableName1}.price FROM {$this->tableName} INNER JOIN {$this->supportTableName1} ON {$this->tablename}.videospiel_id = {$this->supportTableName1}.id 
-		INNER JOIN {$this->supportTableName2} ON {$this->tableName}.user_id = {$this->supportTableName2}.id WHERE {$this->supportTableName2}.id=?";
+			$query = "SELECT {$this->tableName}.id, {$this->supportTableName1}.titel, {$this->supportTableName1}.price FROM {$this->tableName} INNER JOIN {$this->supportTableName1} ON {$this->tableName}.videospiel_id = {$this->supportTableName1}.id 
+		INNER JOIN {$this->supportTableName2} ON {$this->tableName}.user_id = {$this->supportTableName2}.id WHERE {$this->tableName}.user_id=?";
 
         // Datenbankverbindung anfordern und, das Query "preparen" (vorbereiten)
         // und die Parameter "binden"
@@ -86,6 +88,7 @@ class BestellungRepository extends Repository
 
         // Den gefundenen Datensatz zurückgeben
         return $rows;
+		
 	}
 }
 ?>

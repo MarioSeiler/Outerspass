@@ -25,6 +25,7 @@
 
       echo $_SESSION["user"];
       echo $_SESSION["loggedin"];
+		echo $_SESSION["user_id"];
     }
       ?>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">

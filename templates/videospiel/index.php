@@ -4,17 +4,23 @@
 			<h2 class="item title">Hoopla! Keine Videospiele gefunden.</h2>
 		</div>
 	<?php else: ?>
-		<?php foreach ($videospiele as $videospiele): ?>
+		<?php foreach ($videospiele as $videospiel): ?>
 			<div class="panel panel-default">
-				<div class="panel-heading"><?= $videospiel->title; ?> von <?= $videospiel->publisher; ?> | <?=$videospiel->genre; ?></div>
+				<div class="panel-heading"><h3><?= $videospiel->titel; ?> von <?= $videospiel->publisher; ?> | <?=$videospiel->genre; ?></h3></div>
 				<iframe src=<?=$videospiel->trailer; ?> frameborder="0" allowfullscreen></iframe>
-				<?= $videospiel->price; ?> 
+				<div><?php if($videospiel->price == 0): ?>
+					Kostenlos
+					<?php else: ?>
+					<?= $videospiel->price; ?> CHF</div>
+				<?php endif; ?>
 				<?php if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"]): ?>
-				<form action="/bestellung/doCreate" method="post" class="col-6">
-					<input type="hidden" id="user_id" name="user_id" value=<?= $_SESSION["user"]; ?>>
+				<div class="row">
+					<form action="/bestellung/doCreate" method="post" class="col-6">
+					<input type="hidden" id="user_id" name="user_id" value=<?= $_SESSION["user_id"]; ?>>
 					<input type="hidden" id="videospiel_id" name="videospiel_id" value=<?= $videospiel->id; ?>>
 					<button type="submit" name="send" class="btn btn-primary">Zum Warenkorb hinzufügen</button>
-				</form>
+					</form>
+				</div>
 				<?php endif; ?>
 				</div>
 		<?php endforeach; ?>

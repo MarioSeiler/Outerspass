@@ -1,5 +1,5 @@
 <?php
-if(!$_SESSION['loggedin']): ?>
+if(isset($_SESSION['loggedin']) && !$_SESSION['loggedin']): ?>
 <div class="row">
 	<form action="/user/doLogin" method="post" class="col-6">
 		<div class="form-group">

@@ -56,7 +56,7 @@ class UserRepository extends Repository
     public function login($email, $password)
     {
 
-        $query = "Select email, password from $this->tableName where email = ?";
+        $query = "Select * from $this->tableName where email = ?";
 
         $statement = ConnectionHandler::getConnection()->prepare($query);
         $statement->bind_param('s', $email);
@@ -79,6 +79,7 @@ class UserRepository extends Repository
 
             $_SESSION["loggedin"] = true;
             $_SESSION["user"] = $row->email;
+			$_SESSION["user_id"] = $row->id;
 
         }
 
