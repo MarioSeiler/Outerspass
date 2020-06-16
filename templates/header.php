@@ -41,13 +41,17 @@
             </li>
         </ul>
         <span class="navbar-text icons">
-      <a href="/user/login"><i class="fa fa-plus fa-2x" style="color:#FFFFFF"></i></a>
+      <a href="/videospiel/create"><i class="fa fa-plus fa-2x" style="color:#FFFFFF"></i></a>
     </span>
       <span class="navbar-text icons">
-      <a href="/user/login"><i class="fas fa-shopping-cart fa-2x" style="color:#FFFFFF"></i></a>
+      <a href="/bestellung/index"><i class="fas fa-shopping-cart fa-2x" style="color:#FFFFFF"></i></a>
     </span>
       <span class="navbar-text icons">
+      <?php if(!$_SESSION['loggedin']): ?>
       <a href="/user/login"><i class="fas fa-user fa-2x" style="color:#FFFFFF"></i></a>
+      <?php else: ?>
+        <a href="/user/update"><i class="fas fa-user fa-2x" style="color:#FFFFFF"></i></a>
+      <?php endif; ?>
     </span>
     </div>
 </nav>

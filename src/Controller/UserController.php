@@ -30,28 +30,9 @@ class UserController
     }
 
     public function doCreate()
-    {
-
-        if (isset($_POST['email']) && ! empty($_POST['email'])) {
-            $email = $_POST['email'];
-            
-            // see: http://php.net/manual/de/function.filter-var.php
-            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                echo 'This is not an email';
-            }
-        } else {
-            echo 'Email not set';
-        }
-        
-        if (isset($_POST['send'])) {
-            $firstName = $_POST['fname'];
-            $lastName = $_POST['lname'];
-            $email = $_POST['email'];
-            $password = $_POST['password'];
-
-            $userRepository = new UserRepository();
-            $userRepository->create($firstName, $lastName, $email, $password);
-        }
+    {      
+        $userRepository = new UserRepository();
+        $userRepository->create($_POST['fname'], $_POST['lname'], $_POST['email'], $_POST['password']);
 
         // Anfrage an die URI /user weiterleiten (HTTP 302)
         header('Location: /user');
@@ -78,6 +59,21 @@ class UserController
         }
 
     }
+    public function update(){
+        $userRepository = new UserRepository();
+        $view = new View('user/update');
+        $view->title = 'Ändern';
+        $view->heading = 'Ändern';
+        $view->user = $userRepository->readbyID($_SESSION['user_id']);
+        $view->display();
+    }
+    public function doUpdate(){
+        $userRepository = new UserRepository();
+        $userRepository->update($_POST['fname'], $_POST['lname'], $_POST['email'], $_POST['password'], $_POST['password-repeat'], $_POST['id']);
+
+        header("location: /user/update");
+    }
+
 
     public function delete()
     {

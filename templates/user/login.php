@@ -1,5 +1,3 @@
-<?php
-if(isset($_SESSION['loggedin']) && !$_SESSION['loggedin']): ?>
 <div class="row">
 	<form action="/user/doLogin" method="post" class="col-6">
 		<div class="form-group">
@@ -21,12 +19,3 @@ if(isset($_SESSION['loggedin']) && !$_SESSION['loggedin']): ?>
 		</div>
 	</div>
 </div>
-<?php else: ?>
-<div class="row">
-	<div class="col-6">
-
-		<button class="btn btn-primary"><a href="/user/logout">Abmelden</a></button>			
-
-	</div>
-</div>
-<?php endif; ?>

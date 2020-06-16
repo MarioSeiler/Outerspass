@@ -35,7 +35,7 @@ class UserRepository extends Repository
     {
         
         if(empty($firstName) || empty($lastName) || empty($email) || empty($password) || !filter_var($email, FILTER_VALIDATE_EMAIL)){
-            echo 'Eingabe erfüllt nicht den Standard!';
+            throw new Exception("Keine gültige E-Mail");
             exit;
         }
 
@@ -51,6 +51,8 @@ class UserRepository extends Repository
         }
 
         return $statement->insert_id;
+
+
     }
 
     public function login($email, $password)
@@ -80,6 +82,40 @@ class UserRepository extends Repository
             $_SESSION["loggedin"] = true;
             $_SESSION["user"] = $row->email;
 			$_SESSION["user_id"] = $row->id;
+
+        }
+
+    }
+    public function update($firstName, $lastName, $email, $password, $passwordRepeat, $id){
+        if(($password != $passwordRepeat) || empty($firstName) || empty($lastName) || empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)){
+            throw new Exception("Luis gay Fehler!");
+            exit;
+        }
+
+        
+        if(empty($password)){
+            $query = "UPDATE $this->tableName SET firstName = ?, lastName = ?, email = ? where id = ?";
+            
+            $statement = ConnectionHandler::getConnection()->prepare($query);
+            $statement->bind_param('sssi', $firstName, $lastName, $email, $id);
+            
+            if (!$statement->execute()) {
+                throw new Exception($statement->error);
+            }
+            return $statement->insert_id; 
+        }
+        else{
+            $password = sha1($password);
+            
+            $query = "UPDATE $this->tableName SET firstName = ?, lastName = ?, email = ?, password = ? where id = ?";
+    
+            $statement = ConnectionHandler::getConnection()->prepare($query);
+            $statement->bind_param('ssssi', $firstName, $lastName, $email, $password, $id);
+    
+            if (!$statement->execute()) {
+                throw new Exception($statement->error);
+            }
+            return $statement->insert_id;
 
         }
 
