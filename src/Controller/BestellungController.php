@@ -19,6 +19,16 @@ class BestellungController
 		$view->display();
 	}
 	
+	public function doCreate()
+	{
+		if (isset($_POST['send'])) {
+            $firstName = $_POST['user_id'];
+            $lastName = $_POST['videospiel_id'];
+
+            $bestellungRepository = new BestellungRepository();
+            $bestellungRepository->create($user_id, $videospiel_id);
+        }
+	}
 
     public function delete()
     {

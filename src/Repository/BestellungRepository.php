@@ -17,7 +17,7 @@ class BestellungRepository extends Repository
 		$query = "INSERT INTO $this->tableName (user_id, videospiel_id,istGekauft) VALUES (?,?,?,?)";
 		
 		$statement = ConnectionHandler::getConnection()->prepare($query);
-        $statement->bind_param('ssss', $user_id, $videospiel_id, 0);
+        $statement->bind_param('sss', $user_id, $videospiel_id, 0);
 
         if (!$statement->execute()) {
             throw new Exception($statement->error);
