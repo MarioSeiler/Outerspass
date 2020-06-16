@@ -15,19 +15,21 @@ class BestellungController
 		$view = new View('bestellung/index');
 		$view->title = 'Warenkorb';
 		$view->heading = 'Warenkorb';
-		$view->bestellungen = $bestellungRepository->readBestellungen();
+		$view->bestellungen = $bestellungRepository->readBestellungen($_SESSION["user_id"]);
 		$view->display();
 	}
 	
 	public function doCreate()
 	{
 		if (isset($_POST['send'])) {
-            $firstName = $_POST['user_id'];
-            $lastName = $_POST['videospiel_id'];
+            $user_id = $_POST['user_id'];
+            $videospiel_id = $_POST['videospiel_id'];
 
             $bestellungRepository = new BestellungRepository();
             $bestellungRepository->create($user_id, $videospiel_id);
         }
+		
+		header('Location: /videospiel');
 	}
 
     public function delete()
@@ -36,7 +38,7 @@ class BestellungController
         $bestellungRepository->deleteById($_GET['id']);
 
         // Anfrage an die URI /user weiterleiten (HTTP 302)
-        header('Location: /videospiel');
+		header('Location: /bestellung');
     }
 }
 

@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Repository\VideospielRepository;
+use App\Repository\GenreRepository;
 use App\View\View;
 
 
@@ -21,26 +22,22 @@ class VideospielController
 	
 	public function create()
 	{
+		$genreRepository = new GenreRepository();
+		
 		$view = new View('videospiel/create');
 		$view->title = 'Videospiel hinzufügen';
 		$view->heading = 'Videospiel hinzufügen';
+		$view->genres = $genreRepository->readAll();
 		$view->display();
 	}
 	
-	public function single()
+	public function genre()
 	{
-		$view = new View('videospiel/single');
-		$view->title = 'Videospiel Einzelansicht';
-		$view->heading = 'Videospiel Einzelansicht';
-		$view->display();
-	}
-	
-	public function genre($genre)
-	{
+		$videospielRepository = new VideospielRepository();
 		$view = new View('videospiel/index');
-		$view->title = 'Videospiele im Genre von' . $genre;
-		$view->heading = 'Videospiele im Genre von' . $genre;
-		$view->videospiele = $videospielRepository->readGenre($genre);
+		$view->title = 'Videospiele im Genre: ' . $_GET["genre"];
+		$view->heading = 'Videospiele im Genre: ' . $_GET["genre"];
+		$view->videospiele = $videospielRepository->readGenre($_GET["genre"]);
 		$view->display();
 	}
 	
@@ -48,11 +45,12 @@ class VideospielController
     {
         if (isset($_POST['send'])) {
             $videospielRepository = new VideospielRepository();
+			$genreRepository = new GenreRepository();
 			$titel = $_POST['titel'];
             $publisher = $_POST['publisher'];
             $trailer = $_POST['trailer'];
             $price = $_POST['price'];
-            $genre_id = $videospielRepository->getGenre_id($_POST['genre_id']);
+            $genre_id = $genreRepository->getID($_POST['genre']);
 
             
             $videospielRepository->create($titel, $publisher, $trailer, $price, $genre_id);
