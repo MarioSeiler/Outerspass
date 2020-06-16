@@ -39,7 +39,7 @@
       <a href="/bestellung/index"><i class="fas fa-shopping-cart fa-2x" style="color:#FFFFFF"></i></a>
     </span>
       <span class="navbar-text icons">
-      <?php if(!$_SESSION['loggedin']): ?>
+      <?php if(isset($_SESSION['loggedin']) && !$_SESSION['loggedin']): ?>
       <a href="/user/login"><i class="fas fa-user fa-2x" style="color:#FFFFFF"></i></a>
       <?php else: ?>
         <a href="/user/update"><i class="fas fa-user fa-2x" style="color:#FFFFFF"></i></a>
