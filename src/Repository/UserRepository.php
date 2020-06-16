@@ -56,10 +56,10 @@ class UserRepository extends Repository
     public function login($email, $password)
     {
 
-        $query = "Select id, password from $this->tableName where $this->tableName.email = ?";
+        $query = "Select email, password from $this->tableName where email = ?";
 
         $statement = ConnectionHandler::getConnection()->prepare($query);
-        $statement->bind_param('i', $email);
+        $statement->bind_param('s', $email);
 
         // Das Statement absetzen
         $statement->execute();
@@ -75,10 +75,10 @@ class UserRepository extends Repository
 
         // Datenbankressourcen wieder freigeben
         $result->close();
-        if($row->password == sha1($password)){
+        if($row->email == $email && $row->password == sha1($password)){
 
             $_SESSION["loggedin"] = true;
-            $_SESSION["user"] = $row->id;
+            $_SESSION["user"] = $row->email;
 
         }
 

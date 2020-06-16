@@ -3,7 +3,7 @@
     <footer class="footer">
       <div class="container">
         <span> © 2020 Outerspass, Inc.</span>
-        <span><a href="#">Terms</a></span>
+        <span><a href="/default/terms">Terms</a></span>
       </div>
     </footer>
 

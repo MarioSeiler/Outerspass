@@ -23,8 +23,7 @@
 	<div class="col-6">
 		<div class="user-info">
 
-			<p>Du hast schon einen Account dann melde dich jetzt an! <br></p>
-			<button class="btn btn-primary"><a href="/user/login">Anmelden</a></button>
+			<p>Du hast schon einen Account dann melde dich <a href="/user/login">hier</a> an!</p>
 		</div>
 	</div>
 </div>

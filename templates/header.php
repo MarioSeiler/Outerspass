@@ -20,6 +20,13 @@
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
+    <?php
+    if(isset($_SESSION['loggedin']) && $_SESSION["loggedin"]){
+
+      echo $_SESSION["user"];
+      echo $_SESSION["loggedin"];
+    }
+      ?>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
@@ -32,12 +39,14 @@
                 <a class="nav-link waves-effect waves-light" href="/default/about">About us</a>
             </li>
         </ul>
+        <span class="navbar-text icons">
+      <a href="/user/login"><i class="fa fa-plus fa-2x" style="color:#FFFFFF"></i></a>
+    </span>
       <span class="navbar-text icons">
       <a href="/user/login"><i class="fas fa-shopping-cart fa-2x" style="color:#FFFFFF"></i></a>
     </span>
       <span class="navbar-text icons">
       <a href="/user/login"><i class="fas fa-user fa-2x" style="color:#FFFFFF"></i></a>
-      
     </span>
     </div>
 </nav>

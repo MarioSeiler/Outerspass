@@ -87,4 +87,17 @@ class UserController
         // Anfrage an die URI /user weiterleiten (HTTP 302)
         header('Location: /user');
     }
+
+    public function logout(){
+
+        $_SESSION = array();
+        // Finally, destroy the session.
+        session_destroy();
+
+        
+        session_start();
+        $_SESSION['loggedin'] = false;
+
+        header('Location: /user/login');
+    }
 }

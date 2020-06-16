@@ -47,12 +47,16 @@ class DefaultController
     }
     public function about()
     {
-        // In diesem Fall möchten wir dem Benutzer die View mit dem Namen
-        //   "default_index" rendern. Wie das genau funktioniert, ist in der
-        //   View Klasse beschrieben.
         $view = new View('default/about');
         $view->title = 'About us';
         $view->heading = 'About us';
+        $view->display();
+    }
+    public function terms()
+    {
+        $view = new View('default/terms');
+        $view->title = 'Terms';
+        $view->heading = 'Terms';
         $view->display();
     }
 }
