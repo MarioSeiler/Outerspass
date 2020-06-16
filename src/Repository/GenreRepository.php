@@ -35,7 +35,7 @@ class GenreRepository extends Repository
         $result->close();
 
         // Den gefundenen Datensatz zurückgeben
-        return $row;
+        return $row->id;
 	}
 }
 

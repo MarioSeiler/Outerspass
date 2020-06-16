@@ -20,7 +20,7 @@
 			<label for="genre">Genre</label>
 			<select id="genre" name="genre" class="form-control">
 				<?php foreach($genres as $genre): ?>
-				<option><?=$genre->genre?></option>
+				<option value=<?=$genre->genre?>><?=$genre->genre?></option>
 				<?php endforeach; ?>
 			</select>
 		</div>

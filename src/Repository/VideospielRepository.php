@@ -28,7 +28,7 @@ class VideospielRepository extends Repository
 	public function readGenre($genre)
 	{
 		 // Query erstellen
-        $query = "SELECT * FROM {$this->tableName} INNER JOIN {$this->supportTableName} ON {$this->tableName}.genre_id = {$this->supportTableName}.id WHERE {$this->supportTableName}.genre=?";
+        $query = "SELECT {$this->tableName}.*, {$this->supportTableName}.genre FROM {$this->tableName} INNER JOIN {$this->supportTableName} ON {$this->tableName}.genre_id = {$this->supportTableName}.id WHERE {$this->supportTableName}.genre=?";
 
         // Datenbankverbindung anfordern und, das Query "preparen" (vorbereiten)
         // und die Parameter "binden"
@@ -86,7 +86,7 @@ class VideospielRepository extends Repository
 	
 	public function readAll($max = 100)
 	{
-		$query = "SELECT * FROM {$this->tableName} INNER JOIN {$this->supportTableName} ON {$this->tableName}.genre_id = {$this->supportTableName}.id LIMIT 0, $max";
+		$query = "SELECT {$this->tableName}.*, {$this->supportTableName}.genre FROM {$this->tableName} INNER JOIN {$this->supportTableName} ON {$this->tableName}.genre_id = {$this->supportTableName}.id LIMIT 0, $max";
 
         $statement = ConnectionHandler::getConnection()->prepare($query);
         $statement->execute();
