@@ -60,12 +60,18 @@ class UserController
 
     }
     public function update(){
+        if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
+            header("location: login");
+            exit;
+        }
+        
         $userRepository = new UserRepository();
         $view = new View('user/update');
         $view->title = 'Ändern';
         $view->heading = 'Ändern';
         $view->user = $userRepository->readbyID($_SESSION['user_id']);
         $view->display();
+
     }
     public function doUpdate(){
         $userRepository = new UserRepository();

@@ -20,14 +20,6 @@
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <?php
-    if(isset($_SESSION['loggedin']) && $_SESSION["loggedin"]){
-
-      echo $_SESSION["user"];
-      echo $_SESSION["loggedin"];
-		echo $_SESSION["user_id"];
-    }
-      ?>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
