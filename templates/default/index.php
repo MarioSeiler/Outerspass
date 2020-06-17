@@ -6,7 +6,11 @@
 	<?php else: ?>
 	<div class="d-flex flex-wrap align-content-center ">
         <?php shuffle($videospiele);
-        for ($i = 0; $i<3;$i++): ?>
+        $count = count($videospiele);
+        if($count>3){
+            $count = 3;
+        }
+        for ($i = 0; $i<$count;$i++): ?>
 			<div class="mt-auto rounded">
 				<div class="panel-heading"><h3><?= $videospiele[$i]->titel; ?></h3></div>
 				<iframe src=<?=$videospiele[$i]->trailer; ?> frameborder="0" allowfullscreen></iframe>
