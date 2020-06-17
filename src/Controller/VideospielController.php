@@ -42,7 +42,7 @@ class VideospielController
 	
 	public function doSearch()
 	{
-		if (isset($_GET["send"]))
+		if (isset($_GET["send"]) || isset($_GET["searchtype"]) || empty($_GET["searchtype"]) || isset($_GET["q"]) || empty($_GET["q"]))
 		{
 			$videospielRepository = new VideospielRepository();
 			$view = new View('videospiel/index');
@@ -53,13 +53,15 @@ class VideospielController
 		}
 		else
 		{
-			header("Location: /videospiel");
+			
+			throw new Exception("Fehlerhafte Eingabe");
 		}
 	}
 	
     public function doCreate()
     {
-        if (isset($_POST['send'])) {
+        if (isset($_POST['send']) || isset($_POST['titel']) || empty($_POST['titel']) || isset($_POST['publisher']) || empty($_POST['publisher']) || isset($_POST['trailer']) || empty($_POST['trailer']) || isset($_POST['price']) || empty($_POST['price']) || isset($_POST['genre']) || empty($_POST['genre']))
+		{
             $videospielRepository = new VideospielRepository();
 			$genreRepository = new GenreRepository();
 			$titel = $_POST['titel'];
@@ -69,22 +71,36 @@ class VideospielController
             $genre_id = $genreRepository->getID($_POST['genre']);
 
             
-            $videospielRepository->create($titel, $publisher, $trailer, $price, $genre_id);
+            $videospielRepository->create($titel, $publisher, $trailer, $price, $genre_id);	
+			header('Location: /videospiel');
         }
-
-        // Anfrage an die URI /user weiterleiten (HTTP 302)
-        header('Location: /videospiel');
+		else
+		{
+			
+			throw new Exception("Fehlerhafte Daten angegeben");
+		}
+        
     }
 
     public function delete()
     {
+		
 		if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] && $_SESSION['user'] == 'bseilm@bbcag.ch')
 		{
-			$videospielRepository = new VideospielRepository();
-			$videospielRepository->deleteById($_GET['id']);
+			if(isset($_GET['id']) || empty($_GET['id']))
+			{
+				$videospielRepository = new VideospielRepository();
+				$videospielRepository->deleteById($_GET['id']);
 
-			// Anfrage an die URI /user weiterleiten (HTTP 302)
-			header('Location: /videospiel');
+				// Anfrage an die URI /user weiterleiten (HTTP 302)
+				header('Location: /videospiel');
+				
+			}
+			else
+			{
+				throw new Exception("Keine ID angegeben");
+			}
+			
 		}
 		else 
 		{
