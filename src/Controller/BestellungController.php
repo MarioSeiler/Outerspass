@@ -26,7 +26,8 @@ class BestellungController
 	
 	public function doCreate()
 	{
-		if (isset($_POST['send']) || isset($_POST['user_id']) || empty($_POST['user_id']) || isset($_POST['videospiel_id']) || empty($_POST['videospiel_id']) {
+		if (isset($_POST['send']) || isset($_POST['user_id']) || empty($_POST['user_id']) || isset($_POST['videospiel_id']) || empty($_POST['videospiel_id'])) 
+		{
             $user_id = $_POST['user_id'];
             $videospiel_id = $_POST['videospiel_id'];
 
