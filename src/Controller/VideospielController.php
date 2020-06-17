@@ -78,11 +78,18 @@ class VideospielController
 
     public function delete()
     {
-        $videospielRepository = new VideospielRepository();
-        $videospielRepository->deleteById($_GET['id']);
+		if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] && $_SESSION['user'] == 'bseilm@bbcag.ch')
+		{
+			$videospielRepository = new VideospielRepository();
+			$videospielRepository->deleteById($_GET['id']);
 
-        // Anfrage an die URI /user weiterleiten (HTTP 302)
-        header('Location: /videospiel');
+			// Anfrage an die URI /user weiterleiten (HTTP 302)
+			header('Location: /videospiel');
+		}
+		else 
+		{
+			throw new Exception("Nur Admins haben Zugang");
+		}
     }
 }
 

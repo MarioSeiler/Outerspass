@@ -13,7 +13,6 @@
     <title><?= $title; ?> | Outerspass</title>
   </head>
   <body>
-<div id="topheader">
     <header>
     <nav class="navbar navbar-expand-lg navbar-dark">
     <a class="navbar-brand nav-outerspass" href="/default/index">Outerspass</a>
@@ -47,7 +46,6 @@
         <a href="/user/update"><i class="fas fa-user fa-2x" style="color:#FFFFFF"></i></a>
       <?php endif; ?>
     </span>
-    </div>
 </nav>
     </header>
       </div>

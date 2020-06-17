@@ -12,6 +12,10 @@ body {
 h1{
   color: #42D651;
 }
+.contact{
+  color: #42D651;
+  padding: 20px 0;
+}
 body > .container {
   padding: 80px 15px 0;
 }

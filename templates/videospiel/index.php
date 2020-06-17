@@ -33,10 +33,10 @@
 				<iframe src=<?=$videospiel->trailer; ?> frameborder="0" allowfullscreen></iframe>
 				<div><?= $videospiel->publisher; ?></div>
 				<div><?= $videospiel->genre; ?></div>
-				<div><?php if($videospiel->price == 0): ?>
+				<?php if($videospiel->price == 0): ?>
 					Kostenlos
-					<?php else: ?>
-					<?= $videospiel->price; ?> CHF</div>
+				<?php else: ?>
+					<?= $videospiel->price; ?> CHF
 				<?php endif; ?>
 				<?php if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"]): ?>
 					<div class="row">
@@ -47,11 +47,11 @@
 						</form>
 						<?php if($_SESSION["user"] == "bseilm@bbcag.ch"): ?>
 						<a class="col-sm" title="Löschen" href="/bestellung/delete?id=<?= $bestellung->id; ?>">Löschen</a>
-					<?php endif; ?>
+						<?php endif; ?>
 					</div>
 				<?php endif; ?>
 			</div>
-	</div> <?php // Diese Zeile nach dem endforeach Zeile moven ?>
 		<?php endforeach; ?>
+	</div>
 	<?php endif; ?>
 </article>

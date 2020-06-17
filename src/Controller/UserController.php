@@ -39,8 +39,18 @@ class UserController
 
     public function doCreate()
     {      
-        $userRepository = new UserRepository();
-        $userRepository->create($_POST['fname'], $_POST['lname'], $_POST['email'], $_POST['password']);
+		if(empty($firstName) || empty($lastName) || empty($email) || empty($password) || !filter_var($email, FILTER_VALIDATE_EMAIL)){// Validierung auf Controller verschieben!
+            throw new Exception("Keine gültige E-Mail");
+            exit;
+        }
+		else
+		{
+			$userRepository = new UserRepository();
+			$userRepository->create($_POST['fname'], $_POST['lname'], $_POST['email'], $_POST['password']);
+
+			// Anfrage an die URI /user weiterleiten (HTTP 302)
+			header('Location: /');
+		}
 
         // Anfrage an die URI /user weiterleiten (HTTP 302)
         header('Location: /');
@@ -82,10 +92,18 @@ class UserController
 
     }
     public function doUpdate(){
-        $userRepository = new UserRepository();
-        $userRepository->update($_POST['fname'], $_POST['lname'], $_POST['email'], $_POST['password'], $_POST['password-repeat'], $_POST['id']);
+		if(($password != $passwordRepeat) || empty($firstName) || empty($lastName) || empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)){ 
+			
+            throw new Exception("Luis gay Fehler!");
+            exit;
+        }
+		else
+		{
+			$userRepository = new UserRepository();
+			$userRepository->update($_POST['fname'], $_POST['lname'], $_POST['email'], $_POST['password'], $_POST['password-repeat'], $_POST['id']);
 
-        header("location: /user/update");
+			header("location: /user/update");
+		}
     }
 
 
