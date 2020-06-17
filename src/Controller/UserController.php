@@ -43,7 +43,7 @@ class UserController
         $userRepository->create($_POST['fname'], $_POST['lname'], $_POST['email'], $_POST['password']);
 
         // Anfrage an die URI /user weiterleiten (HTTP 302)
-        header('Location: /default/index');
+        header('Location: /');
     }
     public function login(){
         $view = new View('user/login');

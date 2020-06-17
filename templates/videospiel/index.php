@@ -51,7 +51,7 @@
 					</div>
 				<?php endif; ?>
 			</div>
-		<?php endforeach; ?>
 	</div> <?php // Diese Zeile nach dem endforeach Zeile moven ?>
+		<?php endforeach; ?>
 	<?php endif; ?>
 </article>
