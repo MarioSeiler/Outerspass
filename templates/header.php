@@ -6,6 +6,7 @@
 
     <!-- Bootstrap CSS -->
     <script src="https://kit.fontawesome.com/yourcode.js"></script>
+	<script src="js/main.js"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css" integrity="sha384-Bfad6CLCknfcloXFOyFnlgtENryhrpZCe29RTifKEixXQZ38WheV+i/6YWSzkz3V" crossorigin="anonymous">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="/css/style.css" >
@@ -26,6 +27,24 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link waves-effect waves-light" href="/videospiel/index">Games</a>
+				<form action="/videospiel/doSearch" method="get" id="Searchbar" class="col-6">		
+					<div class="row align-items-center">
+						<div class="col.sm">
+							<input type="radio" id="titel" name="searchtype" value="titel" required>
+							<label for="titel">Titel</label><br>
+							<input type="radio" id="publisher" name="searchtype" value="publisher" required>
+							<label for="publisher">Publisher</label><br>
+							<input type="radio" id="genre" name="searchtype" value="genre" required>
+							<label for="genre">Genre</label>
+						</div>
+						<div class="col-sm">
+						<input id="q" name="q" type="text" class="form-control" placeholder="Sucheingabe" maxlength="64" required>
+						</div>
+					</div>
+					<div class="row">
+						<button type="submit" name="send" class="btn btn-primary">Suchen</button>
+					</div>
+				</form>
             </li>
             <li class="nav-item">
                 <a class="nav-link waves-effect waves-light" href="/default/about">About us</a>
