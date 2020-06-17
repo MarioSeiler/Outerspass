@@ -20,15 +20,15 @@ return array(
 
     // Datebankkonfiguration
     'database' => array(
-        'host'     => 'localhost',
-        'username' => 'xTabstopp',
-        'password' => 'Sommer2018$',
-        'database' => 'outerspass-store',
+    'host'     => 'localhost',
+    'username' => 'xTabstopp',
+    'password' => 'Sommer2018$',
+    'database' => 'outerspass-store',
     ),
 
     //'host'     => 'localhost',
-    //    'username' => 'bseilmsql1',
-    //    'password' => 'Welcome$20',
-    //    'database' => 'bseilmsql1',
+    //'username' => 'xTabstopp',
+    //'password' => 'Sommer2018$',
+    //'database' => 'outerspass-store',
 
 );

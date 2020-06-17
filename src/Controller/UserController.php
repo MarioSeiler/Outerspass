@@ -126,15 +126,14 @@ class UserController
 		{
 			if(isset($_GET['id']) || empty($_GET['id']))
 			{
-				throw new Exception("Keine ID angegeben");
-			}
+                $userRepository = new UserRepository();
+                $userRepository->deleteById($_GET['id']);
+                // Anfrage an die URI /user weiterleiten (HTTP 302)
+                        header('Location: /user');
+            }
 			else
 			{
-				$userRepository = new UserRepository();
-				$userRepository->deleteById($_GET['id']);
-
-        // Anfrage an die URI /user weiterleiten (HTTP 302)
-				header('Location: /user');
+                throw new Exception("Keine ID angegeben");
 			}
 			
 		}

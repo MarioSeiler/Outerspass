@@ -21,13 +21,13 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
+            <li class="nav-item <?= ($title=='Home'?'active':'') ?>">
                <a class="nav-link waves-effect waves-light" href="/">Home <span class="sr-only">(current)</span></a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item <?= ($title=='Videospiele'?'active':'') ?>">
                 <a class="nav-link waves-effect waves-light" href="/videospiel/index">Games</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item <?= ($title=='About us'?'active':'') ?>">
                 <a class="nav-link waves-effect waves-light" href="/default/about">About us</a>
             </li>
         </ul>

@@ -6,9 +6,9 @@
 	<?php else: ?>
 		<?php foreach ($users as $user): ?>
 			<div class="panel panel-default">
-				<div class="panel-heading"><?= $user->firstName; ?> <?= $user->lastName; ?></div>
+				<div class="panel-heading"><?= htmlentities($user->firstName); ?> <?= htmlentities($user->lastName); ?></div>
 				<div class="panel-body">
-					<p class="description">In der Datenbank existiert ein User mit dem Namen <?= $user->firstName; ?> <?= $user->lastName; ?>. Dieser hat die EMail-Adresse: <a href="mailto:<?= $user->email; ?>"><?= $user->email; ?></a></p>
+					<p class="description">In der Datenbank existiert ein User mit dem Namen <?= htmlentities($user->firstName); ?> <?= htmlentities($user->lastName); ?>. Dieser hat die EMail-Adresse: <a href="mailto:<?= htmlentities($user->email); ?>"><?= htmlentities($user->email); ?></a></p>
 					<p>
 						<a title="Löschen" href="/user/delete?id=<?= $user->id; ?>">Löschen</a>
 					</p>

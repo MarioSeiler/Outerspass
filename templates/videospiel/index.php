@@ -29,14 +29,14 @@
 	<div class="d-flex flex-wrap align-content-center ">
 		<?php foreach ($videospiele as $videospiel): ?>
 			<div class="mt-auto rounded">
-				<div class="panel-heading"><h3><?= $videospiel->titel; ?></h3></div>
-				<iframe src=<?=$videospiel->trailer; ?> frameborder="0" allowfullscreen></iframe>
-				<div><?= $videospiel->publisher; ?></div>
-				<div><?= $videospiel->genre; ?></div>
+				<div class="panel-heading"><h3><?= htmlentities($videospiel->titel); ?></h3></div>
+				<iframe src=<?=htmlentities($videospiel->trailer); ?> allowfullscreen></iframe>
+				<div><?= htmlentities($videospiel->publisher); ?></div>
+				<div><?= htmlentities($videospiel->genre); ?></div>
 				<?php if($videospiel->price == 0): ?>
 					Kostenlos
 				<?php else: ?>
-					<?= $videospiel->price; ?> CHF
+					<?= htmlentities($videospiel->price); ?> CHF
 				<?php endif; ?>
 				<?php if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"]): ?>
 					<div class="row">

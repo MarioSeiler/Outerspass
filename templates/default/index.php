@@ -12,14 +12,14 @@
         }
         for ($i = 0; $i<$count;$i++): ?>
 			<div class="mt-auto rounded">
-				<div class="panel-heading"><h3><?= $videospiele[$i]->titel; ?></h3></div>
-				<iframe src=<?=$videospiele[$i]->trailer; ?> frameborder="0" allowfullscreen></iframe>
-				<div><?= $videospiele[$i]->publisher; ?></div>
-				<div><?= $videospiele[$i]->genre; ?></div>
+				<div class="panel-heading"><h3><?= htmlentities($videospiele[$i]->titel); ?></h3></div>
+				<iframe src=<?= htmlentities($videospiele[$i]->trailer); ?> allowfullscreen></iframe>
+				<div><?= htmlentities($videospiele[$i]->publisher); ?></div>
+				<div><?= htmlentities($videospiele[$i]->genre); ?></div>
 				<div><?php if($videospiele[$i]->price == 0): ?>
 					Kostenlos</div>
 					<?php else: ?>
-					<?= $videospiele[$i]->price; ?> CHF</div>
+					<?= htmlentities($videospiele[$i]->price); ?> CHF</div>
 				<?php endif; ?>
 				<?php if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"]): ?>
 					<div class="row">
