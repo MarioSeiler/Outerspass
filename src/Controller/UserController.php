@@ -40,16 +40,17 @@ class UserController
     public function doCreate()
     {      
 		if(isset($_POST['fname']) || isset($_POST['lname']) || isset($_POST['email']) || isset($_POST['password']) || empty($_POST['fname']) || empty($_POST['lname']) || empty($_POST['email']) || empty($_POST['password']) || !filter_var($email, FILTER_VALIDATE_EMAIL)){
-            throw new Exception("Keine gültige E-Mail");
-            exit;
-        }
-		else
-		{
-			$userRepository = new UserRepository();
+            $userRepository = new UserRepository();
 			$userRepository->create($_POST['fname'], $_POST['lname'], $_POST['email'], $_POST['password']);
 
 			// Anfrage an die URI /user weiterleiten (HTTP 302)
 			header('Location: /');
+        }
+		else
+		{
+			
+			throw new Exception("Keine gültige E-Mail");
+            exit;
 		}
 
     }
@@ -64,10 +65,6 @@ class UserController
 
 		if(isset($_POST['email']) || empty($_POST['email']) || isset($_POST['password'])|| empty($_POST['password']) || !filter_var($_POST['email'], FILTER_VALIDATE_EMAIL))
 		{
-			throw new Exception ("Ungültige Anmeldedaten");
-		}
-		else
-		{
 			$userRepository = new UserRepository();
 			$userRepository->login($_POST['email'], $_POST['password']);
 
@@ -80,6 +77,12 @@ class UserController
 			{
 				header("location: /default/index");
 			}
+		}
+		else
+		{
+			
+			throw new Exception ("Ungültige Anmeldedaten");
+			exit;
 		}
         
 
@@ -100,16 +103,17 @@ class UserController
     }
     public function doUpdate(){
 		if(isset($_POST['fname']) || isset($_POST['lname']) || isset($_POST['email']) || isset($_POST['password']) || isset($_POST['password-repeat']) || empty($_POST['fname']) || empty($_POST['lname']) || empty($_POST['email']) || empty($_POST['password']) || empty($_POST['password-repeat']) || !filter_var($email, FILTER_VALIDATE_EMAIL) || $_POST['password'] !== $_POST['password-repeat']){ 
-			
-            throw new Exception("Fehlerhafte Daten angegeben");
-            exit;
-        }
-		else
-		{
 			$userRepository = new UserRepository();
 			$userRepository->update($_POST['fname'], $_POST['lname'], $_POST['email'], $_POST['password'], $_POST['password-repeat'], $_POST['id']);
 
 			header("location: /user/update");
+			
+            
+        }
+		else
+		{
+			throw new Exception("Fehlerhafte Daten angegeben");
+            exit;
 		}
     }
 
