@@ -34,7 +34,7 @@ class UserRepository extends Repository
     public function create($firstName, $lastName, $email, $password)
     {
         
-        if(empty($firstName) || empty($lastName) || empty($email) || empty($password) || !filter_var($email, FILTER_VALIDATE_EMAIL)){
+        if(empty($firstName) || empty($lastName) || empty($email) || empty($password) || !filter_var($email, FILTER_VALIDATE_EMAIL)){// Validierung auf Controller verschieben!
             throw new Exception("Keine gültige E-Mail");
             exit;
         }
@@ -111,7 +111,7 @@ class UserRepository extends Repository
 
     }
     public function update($firstName, $lastName, $email, $password, $passwordRepeat, $id){
-        if(($password != $passwordRepeat) || empty($firstName) || empty($lastName) || empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)){
+        if(($password != $passwordRepeat) || empty($firstName) || empty($lastName) || empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)){ // Validierung auf Controller verschieben!
             throw new Exception("Luis gay Fehler!");
             exit;
         }

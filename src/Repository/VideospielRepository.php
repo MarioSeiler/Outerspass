@@ -25,15 +25,20 @@ class VideospielRepository extends Repository
         return $statement->insert_id;
 	}
 	
-	public function readGenre($genre)
+	public function readSearch($searchtype, $q)
 	{
 		 // Query erstellen
-        $query = "SELECT {$this->tableName}.*, {$this->supportTableName}.genre FROM {$this->tableName} INNER JOIN {$this->supportTableName} ON {$this->tableName}.genre_id = {$this->supportTableName}.id WHERE {$this->supportTableName}.genre=?";
+        if($searchtype == "genre")
+		{
+			$searchtype = $this->supportTableName.'.'.$searchtype;
+		}
+			$query = "SELECT {$this->tableName}.*, {$this->supportTableName}.genre FROM {$this->tableName} INNER JOIN {$this->supportTableName} ON {$this->tableName}.genre_id = {$this->supportTableName}.id WHERE $searchtype like ?";
 
         // Datenbankverbindung anfordern und, das Query "preparen" (vorbereiten)
         // und die Parameter "binden"
         $statement = ConnectionHandler::getConnection()->prepare($query);
-        $statement->bind_param('s', $genre);
+		$q = '%'. $q . '%';
+        $statement->bind_param('s', $q);
 
         // Das Statement absetzen
         $statement->execute();

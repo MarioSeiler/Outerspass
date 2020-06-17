@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Repository\VideospielRepository;
 use App\Repository\GenreRepository;
 use App\View\View;
+use Exception;
 
 
 class VideospielController
@@ -22,23 +23,38 @@ class VideospielController
 	
 	public function create()
 	{
-		$genreRepository = new GenreRepository();
-		
-		$view = new View('videospiel/create');
-		$view->title = 'Videospiel hinzufügen';
-		$view->heading = 'Videospiel hinzufügen';
-		$view->genres = $genreRepository->readAll();
-		$view->display();
+		if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] && $_SESSION['user'] == 'bseilm@bbcag.ch')
+		{
+			$genreRepository = new GenreRepository();
+
+			$view = new View('videospiel/create');
+			$view->title = 'Videospiel hinzufügen';
+			$view->heading = 'Videospiel hinzufügen';
+			$view->genres = $genreRepository->readAll();
+			$view->display();
+		}
+		else
+		{
+			throw new Exception("Nur Admins haben Zugang");
+		}
 	}
 	
-	public function genre()
+	
+	public function doSearch()
 	{
-		$videospielRepository = new VideospielRepository();
-		$view = new View('videospiel/index');
-		$view->title = 'Videospiele im Genre: ' . $_GET["genre"];
-		$view->heading = 'Videospiele im Genre: ' . $_GET["genre"];
-		$view->videospiele = $videospielRepository->readGenre($_GET["genre"]);
-		$view->display();
+		if (isset($_GET["send"]))
+		{
+			$videospielRepository = new VideospielRepository();
+			$view = new View('videospiel/index');
+			$view->title = 'Videospiele';
+			$view->heading = 'Videospiele';
+			$view->videospiele = $videospielRepository->readSearch($_GET["searchtype"],$_GET["q"]);
+			$view->display();
+		}
+		else
+		{
+			header("Location: /videospiel");
+		}
 	}
 	
     public function doCreate()

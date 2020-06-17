@@ -32,9 +32,11 @@
                 <a class="nav-link waves-effect waves-light" href="/default/about">About us</a>
             </li>
         </ul>
+		<?php if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] && $_SESSION['user'] == 'bseilm@bbcag.ch'): ?>
         <span class="navbar-text icons">
       <a href="/videospiel/create"><i class="fa fa-plus fa-2x" style="color:#FFFFFF"></i></a>
     </span>
+		<?php endif; ?> 
       <span class="navbar-text icons">
       <a href="/bestellung/index"><i class="fas fa-shopping-cart fa-2x" style="color:#FFFFFF"></i></a>
     </span>

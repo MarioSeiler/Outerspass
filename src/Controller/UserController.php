@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Repository\UserRepository;
 use App\View\View;
+use Exception;
 
 /**
  * Siehe Dokumentation im DefaultController.
@@ -12,13 +13,20 @@ class UserController
 {
     public function index()
     {
-        $userRepository = new UserRepository();
+		if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] && $_SESSION['user'] == 'bseilm@bbcag.ch')
+		{
+			$userRepository = new UserRepository();
 
-        $view = new View('user/index');
-        $view->title = 'Benutzer';
-        $view->heading = 'Benutzer';
-        $view->users = $userRepository->readAll();
-        $view->display();
+			$view = new View('user/index');
+			$view->title = 'Benutzer';
+			$view->heading = 'Benutzer';
+			$view->users = $userRepository->readAll();
+			$view->display();
+		}
+		else
+		{
+			throw new Exception("Nur Admins haben Zugang");
+		}
     }
 
     public function create()
@@ -35,7 +43,7 @@ class UserController
         $userRepository->create($_POST['fname'], $_POST['lname'], $_POST['email'], $_POST['password']);
 
         // Anfrage an die URI /user weiterleiten (HTTP 302)
-        header('Location: /user');
+        header('Location: /');
     }
     public function login(){
         $view = new View('user/login');
