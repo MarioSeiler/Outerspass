@@ -51,6 +51,7 @@ class UserController
 			// Anfrage an die URI /user weiterleiten (HTTP 302)
 			header('Location: /');
 		}
+
     }
     public function login(){
         $view = new View('user/login');
