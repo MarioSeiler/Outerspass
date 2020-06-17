@@ -42,8 +42,13 @@ class VideospielController
 	
 	public function doSearch()
 	{
-		if (isset($_GET["send"]))
+		if (isset($_GET["send"]) || isset($_GET["searchtype"]) || empty($_GET["searchtype"]) || isset($_GET["q"]) || empty($_GET["q"]))
 		{
+			throw new Exception("Fehlerhafte Eingabe");
+		}
+		else
+		{
+			
 			$videospielRepository = new VideospielRepository();
 			$view = new View('videospiel/index');
 			$view->title = 'Videospiele';
@@ -51,16 +56,17 @@ class VideospielController
 			$view->videospiele = $videospielRepository->readSearch($_GET["searchtype"],$_GET["q"]);
 			$view->display();
 		}
-		else
-		{
-			header("Location: /videospiel");
-		}
 	}
 	
     public function doCreate()
     {
-        if (isset($_POST['send'])) {
-            $videospielRepository = new VideospielRepository();
+        if (isset($_POST['send']) || isset($_POST['titel']) || empty($_POST['titel']) || isset($_POST['publisher']) || empty($_POST['publisher']) || isset($_POST['trailer']) || empty($_POST['trailer']) || isset($_POST['price']) || empty($_POST['price']) || isset($_POST['genre']) || empty($_POST['genre']))
+		{
+            throw new Exception("Fehlerhafte Daten angegeben");
+        }
+		else
+		{
+			$videospielRepository = new VideospielRepository();
 			$genreRepository = new GenreRepository();
 			$titel = $_POST['titel'];
             $publisher = $_POST['publisher'];
@@ -69,22 +75,30 @@ class VideospielController
             $genre_id = $genreRepository->getID($_POST['genre']);
 
             
-            $videospielRepository->create($titel, $publisher, $trailer, $price, $genre_id);
-        }
-
+            $videospielRepository->create($titel, $publisher, $trailer, $price, $genre_id);	
+		}
         // Anfrage an die URI /user weiterleiten (HTTP 302)
         header('Location: /videospiel');
     }
 
     public function delete()
     {
+		
 		if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] && $_SESSION['user'] == 'bseilm@bbcag.ch')
 		{
-			$videospielRepository = new VideospielRepository();
-			$videospielRepository->deleteById($_GET['id']);
+			if(isset($_GET['id']) || empty($_GET['id']))
+			{
+				throw new Exception("Keine ID angegeben");
+			}
+			else
+			{
+				$videospielRepository = new VideospielRepository();
+				$videospielRepository->deleteById($_GET['id']);
 
-			// Anfrage an die URI /user weiterleiten (HTTP 302)
-			header('Location: /videospiel');
+				// Anfrage an die URI /user weiterleiten (HTTP 302)
+				header('Location: /videospiel');
+			}
+			
 		}
 		else 
 		{

@@ -101,7 +101,7 @@ class UserController
     public function doUpdate(){
 		if(isset($_POST['fname']) || isset($_POST['lname']) || isset($_POST['email']) || isset($_POST['password']) || isset($_POST['password-repeat']) || empty($_POST['fname']) || empty($_POST['lname']) || empty($_POST['email']) || empty($_POST['password']) || empty($_POST['password-repeat']) || !filter_var($email, FILTER_VALIDATE_EMAIL) || $_POST['password'] !== $_POST['password-repeat']){ 
 			
-            throw new Exception("Fehlerhafte Daten");
+            throw new Exception("Fehlerhafte Daten angegeben");
             exit;
         }
 		else
@@ -116,11 +116,27 @@ class UserController
 
     public function delete()
     {
-        $userRepository = new UserRepository();
-        $userRepository->deleteById($_GET['id']);
+		if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] && $_SESSION['user'] == 'bseilm@bbcag.ch')
+		{
+			if(isset($_GET['id']) || empty($_GET['id']))
+			{
+				throw new Exception("Keine ID angegeben");
+			}
+			else
+			{
+				$userRepository = new UserRepository();
+				$userRepository->deleteById($_GET['id']);
 
         // Anfrage an die URI /user weiterleiten (HTTP 302)
-        header('Location: /user');
+				header('Location: /user');
+			}
+			
+		}
+		else 
+		{
+			throw new Exception("Nur Admins haben Zugang");
+		}
+        
     }
 
     public function logout(){

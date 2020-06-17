@@ -22,7 +22,7 @@ class ExceptionListener
 
         $view = new View('error');
         $view->title = 'Fehler';
-        $view->heading = 'Ein Fehler ist aufgetretten';
+        $view->heading = 'Ein Fehler ist aufgetreten';
         $view->userMessage = '';
         $view->exception = $exception;
 
