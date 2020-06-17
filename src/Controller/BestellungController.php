@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Repository\BestellungRepository;
 use App\View\View;
+use Exception;
 
 
 class BestellungController
@@ -38,11 +39,19 @@ class BestellungController
 
     public function delete()
     {
-        $bestellungRepository = new BestellungRepository();
+		if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'])
+		{
+		$bestellungRepository = new BestellungRepository();
         $bestellungRepository->deleteById($_GET['id']);
 
         // Anfrage an die URI /user weiterleiten (HTTP 302)
 		header('Location: /bestellung');
+		}
+		else
+		{
+			throw new Exception("Nur Admins haben Zugang");
+		}
+        
     }
 }
 

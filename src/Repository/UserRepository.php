@@ -111,10 +111,6 @@ class UserRepository extends Repository
 
     }
     public function update($firstName, $lastName, $email, $password, $passwordRepeat, $id){
-        if(($password != $passwordRepeat) || empty($firstName) || empty($lastName) || empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)){ // Validierung auf Controller verschieben!
-            throw new Exception("Luis gay Fehler!");
-            exit;
-        }
 
         
         if(empty($password)){
