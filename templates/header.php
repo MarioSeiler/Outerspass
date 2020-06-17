@@ -13,7 +13,7 @@
     <title><?= $title; ?> | Outerspass</title>
   </head>
   <body>
-
+<div id="topheader">
     <header>
     <nav class="navbar navbar-expand-lg navbar-dark">
     <a class="navbar-brand nav-outerspass" href="/default/index">Outerspass</a>
@@ -48,6 +48,6 @@
     </div>
 </nav>
     </header>
-
+      </div>
     <main class="container">
       <h1><?= $heading; ?></h1>

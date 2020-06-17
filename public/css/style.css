@@ -93,4 +93,18 @@ nav{
   border-color: #1B662B; /*set the color you want here*/
 
 }
+.container{
+  max-width: 1600px;
+}
+.mt-auto{
+  margin: 50px;
+  padding: 20px 40px;
+  background-color: #0C0E0F;
+  box-shadow: 2px 2px 2px black;
+}
+.flex-wrap{
+  margin: 40px 0;
+}
+
+
 

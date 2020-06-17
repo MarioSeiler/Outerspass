@@ -10,6 +10,10 @@ class BestellungController
 {
 	public function index()
 	{
+		if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
+            header("location: /user/login");
+            exit;
+        }
 		$bestellungRepository = new BestellungRepository();
 		
 		$view = new View('bestellung/index');

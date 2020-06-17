@@ -4,10 +4,13 @@
 			<h2 class="item title">Hoopla! Keine Videospiele gefunden.</h2>
 		</div>
 	<?php else: ?>
+	<div class="d-flex flex-wrap align-content-center ">
 		<?php foreach ($videospiele as $videospiel): ?>
-			<div class="panel panel-default">
-				<div class="panel-heading"><h3><?= $videospiel->titel; ?> von <?= $videospiel->publisher; ?> | <?=$videospiel->genre; ?></h3></div>
+			<div class="mt-auto rounded">
+				<div class="panel-heading"><h3><?= $videospiel->titel; ?></h3></div>
 				<iframe src=<?=$videospiel->trailer; ?> frameborder="0" allowfullscreen></iframe>
+				<div><?= $videospiel->publisher; ?></div>
+				<div><?= $videospiel->genre; ?></div>
 				<div><?php if($videospiel->price == 0): ?>
 					Kostenlos
 					<?php else: ?>
@@ -22,7 +25,8 @@
 					</form>
 				</div>
 				<?php endif; ?>
-				</div>
+			</div>
 		<?php endforeach; ?>
+	</div>
 	<?php endif; ?>
 </article>

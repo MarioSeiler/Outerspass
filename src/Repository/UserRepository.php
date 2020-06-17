@@ -38,6 +38,30 @@ class UserRepository extends Repository
             throw new Exception("Keine gültige E-Mail");
             exit;
         }
+        $query = "Select * from $this->tableName where email = ?";
+
+        $statement = ConnectionHandler::getConnection()->prepare($query);
+        $statement->bind_param('s', $email);
+
+        $statement->execute();
+
+        // Resultat der Abfrage holen
+        $result = $statement->get_result();
+        if (!$result) {
+            throw new Exception($statement->error);
+        }
+
+        // Ersten Datensatz aus dem Reultat holen
+        $row = $result->fetch_object();
+
+        // Datenbankressourcen wieder freigeben
+        $result->close();
+        if($row->email == $email){
+
+            throw new Exception("E-Mail wird bereits verwendet.");
+            exit;
+
+        }
 
         $password = sha1($password);
         
