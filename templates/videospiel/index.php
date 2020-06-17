@@ -1,25 +1,3 @@
-<div class="margin-top">
-	<form action="/videospiel/doSearch" method="get" class="col-6 mt-auto rounded">	
-		<h3 class="row">Suchen</h3>	
-		<div class="row align-items-center">
-			<div class="col.sm">
-				<input type="radio" id="titel" name="searchtype" value="titel" required>
-				<label for="titel">Titel</label><br>
-				<input type="radio" id="publisher" name="searchtype" value="publisher" required>
-				<label for="publisher">Publisher</label><br>
-				<input type="radio" id="genre" name="searchtype" value="genre" required>
-				<label for="genre">Genre</label>
-			</div>
-			<div class="col-sm">
-			<input id="q" name="q" type="text" class="form-control" placeholder="Sucheingabe" maxlength="64" required>
-			</div>
-		</div>
-		<div class="row">
-			<button type="submit" name="send" class="btn btn-primary">Suchen</button>
-		</div>
-	
-	</form>
-</div>
 <article class="hreview open special">
 	<?php if (empty($videospiele)): ?>
 		<div class="dhd">
