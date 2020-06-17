@@ -39,7 +39,7 @@ class UserController
 
     public function doCreate()
     {      
-		if(empty($firstName) || empty($lastName) || empty($email) || empty($password) || !filter_var($email, FILTER_VALIDATE_EMAIL)){// Validierung auf Controller verschieben!
+		if(isset($_POST['fname']) || isset($_POST['lname']) || isset($_POST['email']) || isset($_POST['password']) || empty($_POST['fname']) || empty($_POST['lname']) || empty($_POST['email']) || empty($_POST['password']) || !filter_var($email, FILTER_VALIDATE_EMAIL)){
             throw new Exception("Keine gültige E-Mail");
             exit;
         }
@@ -62,17 +62,26 @@ class UserController
 
     public function doLogin(){
 
-        $userRepository = new UserRepository();
-        $userRepository->login($_POST['email'], $_POST['password']);
+		if(isset($_POST['email']) || empty($_POST['email']) || isset($_POST['password'])|| empty($_POST['password']) || !filter_var($_POST['email'], FILTER_VALIDATE_EMAIL))
+		{
+			throw new Exception ("Ungültige Anmeldedaten");
+		}
+		else
+		{
+			$userRepository = new UserRepository();
+			$userRepository->login($_POST['email'], $_POST['password']);
 
-        // Check if the user is logged in, if not then redirect him to login page
-        if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
-            header("location: login");
-            exit;
-        }
-        else{
-            header("location: /default/index");
-        }
+			// Check if the user is logged in, if not then redirect him to login page
+			if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
+				header("location: login");
+				exit;
+			}
+			else
+			{
+				header("location: /default/index");
+			}
+		}
+        
 
     }
     public function update(){
@@ -90,9 +99,9 @@ class UserController
 
     }
     public function doUpdate(){
-		if(($password != $passwordRepeat) || empty($firstName) || empty($lastName) || empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)){ 
+		if(isset($_POST['fname']) || isset($_POST['lname']) || isset($_POST['email']) || isset($_POST['password']) || isset($_POST['password-repeat']) || empty($_POST['fname']) || empty($_POST['lname']) || empty($_POST['email']) || empty($_POST['password']) || empty($_POST['password-repeat']) || !filter_var($email, FILTER_VALIDATE_EMAIL) || $_POST['password'] !== $_POST['password-repeat']){ 
 			
-            throw new Exception("Luis gay Fehler!");
+            throw new Exception("Fehlerhafte Daten");
             exit;
         }
 		else
