@@ -39,7 +39,7 @@ class BestellungController
 
     public function delete()
     {
-		if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'])
+		if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] && isset($_GET['id']) || empty($_GET['id']))
 		{
 		$bestellungRepository = new BestellungRepository();
         $bestellungRepository->deleteById($_GET['id']);

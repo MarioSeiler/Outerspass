@@ -90,5 +90,17 @@ class BestellungRepository extends Repository
         return $rows;
 		
 	}
+	
+	public function deleteById($id)
+    {
+        $query = "DELETE FROM {$this->tableName} WHERE id=? AND user_id=?";
+
+        $statement = ConnectionHandler::getConnection()->prepare($query);
+        $statement->bind_param('ii', $id, $_SESSION['user_id']);
+
+        if (!$statement->execute()) {
+            throw new Exception($statement->error);
+        }
+    }
 }
 ?>
